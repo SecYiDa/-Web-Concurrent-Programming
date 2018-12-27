@@ -202,8 +202,8 @@ void multiplex(){
     server_addr.sin_family = AF_INET;         // host byte order
     server_addr.sin_port = htons(MYPORT);     // set port
     server_addr.sin_addr.s_addr = INADDR_ANY; // my IP
-    //memset(server_addr.sin_zero, 0, sizeof(server_addr.sin_zero));
-    bzero(server_addr.sin_zero, sizeof(server_addr.sin_zero));
+    //memset(server_addr.sin_zero, 0, sizeof(server_addr.sin_ze6[ro));
+    bzero(server_addr.sin_zero, sizeof(server_addr.sin_zero));   //保证大小
     
     /* bind */
     if (bind(sock_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
@@ -221,7 +221,8 @@ void multiplex(){
     fd_set  backup;
     int max = sock_fd;                  // select 处理的最大套接字 需要每轮更新
     sin_size = sizeof(client_addr);     //accept 参数
-    FD_ZERO(&fd_all);                   //集合初始化
+    FD_ZERO(&set);                   //集合初始化
+    FD_ZERO(&backup);
     FD_SET(sock_fd, &set);
     
     
